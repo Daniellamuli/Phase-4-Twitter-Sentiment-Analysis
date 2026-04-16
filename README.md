@@ -1,10 +1,11 @@
+<div align="center">
+  <img src="figures/twitter-logo.jpg" width="200" height="200" style="border-radius:50%; display:block;">
+
 # Sentiment Analysis of Apple vs Google (SXSW Tweets)
 
 ## Team Members
-- Daniella Muli
-- Eve Michelle
-- Naomi Opiyo
-- Pheonverah Achieng'
+Daniella Muli • Eve Michelle • Naomi Opiyo • Pheonverah Achieng'
+</div>
 
 ---
 
