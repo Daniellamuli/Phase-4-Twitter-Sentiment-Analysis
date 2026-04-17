@@ -41,10 +41,11 @@
 ### Day 4: Final Assembly & Presentation
 | Person | Primary File | Deliverable |
 |--------|--------------|-------------|
-| Daniella | `src/pipeline.py` | End-to-end pipeline |
-| Eve | `notebooks/final_presentation.ipynb` | Demo notebook |
+| Daniella | `notebooks/final_notebook.ipynb` | Demo notebook |
+| Daniella | `docs/presentation_slides.md` | Final presentation slides |
+| Eve | `src/pipeline.py` | End-to-end pipeline |
 | Verah | `docs/README.md` | Complete documentation |
-| Naomi | `docs/presentation_slides.md` | Final presentation slides |
+| Naomi | `tableau` | Interactive dashboard |
 
 **End of Day Deliverable**: Complete project + presentation
 
@@ -66,15 +67,17 @@ Phase-4-Twitter-Sentiment-Analysis/
 │ ├── train\_multiclass.py # Day 3 - Eve  
 │ ├── evaluate.py # Day 3 - Verah  
 │ ├── compare\_models.py # Day 3 - Naomi  
-│ ├── pipeline.py # Day 4 - Daniella  
+│ ├── pipeline.py # Day 4 - Eve  
 │ └── init.py  
 │  
+├── tableau/  
+│ └── interactive dashboard # Day 4 - Naomi  
 ├── notebooks/  
-│ └── final\_presentation.ipynb # Day 4 - Eve (ONLY ONE!)  
+│ └── final\_presentation.ipynb # Day 4 - Daniella (ONLY ONE!)  
 │  
 ├── docs/  
 │ ├── README.md # Day 4 - Verah  
-│ └── presentation\_slides.md # Day 4 - Naomi  
+│ └── presentation\_slides.md # Day 4 - Daniella  
 │  
 ├── data/  
 │ └── judge-1377884607\_tweet\_product\_company.csv  
@@ -93,7 +96,7 @@ Phase-4-Twitter-Sentiment-Analysis/
 
 ---
 
-## TO NOTE:
+### TO NOTE:
 
 - Everyone IMPORTS from `constants.py`
     - **Result**: When merged, ALL code uses the SAME variable names!
