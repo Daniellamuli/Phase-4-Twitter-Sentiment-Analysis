@@ -1,6 +1,11 @@
 """Shared constants for Twitter Sentiment Analysis project.
 All team members import from this file to ensure consistency across modules.
 """
+#=========================================================================
+
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # ============================================
 # FILE PATHS
