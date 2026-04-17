@@ -55,8 +55,8 @@ Phase-4-Twitter-Sentiment-Analysis/
 │  
 ├── src/ # 15 Python files (one per person per day)  
 │ ├── constants.py # Day 1 - Daniella  
-│ ├── load\_data.py # Day 1 - Eve  
-│ ├── clean\_text.py # Day 1 - Verah  
+│ ├── load\_data.py # Day 1 - Verah  
+│ ├── clean\_text.py # Day 1 - Eve  
 │ ├── visualize.py # Day 1 - Naomi  
 │ ├── preprocess.py # Day 2 - Daniella  
 │ ├── vectorize.py # Day 2 - Eve  
