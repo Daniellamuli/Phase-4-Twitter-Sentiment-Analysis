@@ -6,8 +6,8 @@
 | Person | Primary File | Deliverable |
 |--------|--------------|-------------|
 | Daniella | `src/constants.py` | Shared variables, paths, labels |
-| Eve | `src/load_data.py` | Load CSV, basic info, filtering |
-| Verah | `src/clean_text.py` | Text cleaning pipeline |
+| Verah |  `src/load_data.py` | Load CSV, basic info, filtering |
+| Eve | `src/clean_text.py` | Text cleaning pipeline |
 | Naomi | `src/visualize.py` | EDA plots, word clouds |
 
 **End of Day Deliverable**: Cleaned data + visualizations
