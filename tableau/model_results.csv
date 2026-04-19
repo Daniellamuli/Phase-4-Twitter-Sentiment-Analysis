@@ -1,0 +1,5 @@
+model,accuracy,precision,recall,f1_score,type
+Logistic Regression (Binary),0.8535,0.8753,0.8535,0.799,Binary
+Naive Bayes (Binary),0.8535,0.8554,0.8535,0.8029,Binary
+Random Forest (Multiclass),0.6851,0.6692,0.6851,0.6608,Multiclass
+SVM (Multiclass),0.6594,0.6451,0.6594,0.6478,Multiclass

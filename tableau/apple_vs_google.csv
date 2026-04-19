@@ -1,0 +1,7 @@
+brand,sentiment_label,count,percentage
+Apple,Negative,388,16.15
+Apple,Neutral,65,2.71
+Apple,Positive,1949,81.14
+Google,Negative,131,14.89
+Google,Neutral,26,2.95
+Google,Positive,723,82.16
