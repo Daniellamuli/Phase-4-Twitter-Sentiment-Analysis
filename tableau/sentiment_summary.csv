@@ -1,0 +1,4 @@
+sentiment,count,percentage,sentiment_label
+No emotion toward brand or product,5389,60.3,Neutral
+Positive emotion,2978,33.32,Positive
+Negative emotion,570,6.38,Negative
