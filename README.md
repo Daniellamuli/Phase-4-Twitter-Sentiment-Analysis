@@ -104,15 +104,15 @@ The raw tweet dataset underwent a series of essential data preparation steps to 
 1. Text Cleaning Pipeline
 Raw tweet text is extremely noisy. The following cleaning steps were applied in sequence:
 
-Step	Operation	Rationale
-- Lowercasing	Ensures consistent tokenization.
-- URL removal	URLs carry no sentiment information
-- 	Mention removal (@handles)	User handles are uninformative
-- Hashtag symbol removal (#)	Retains the word (e.g., #amazing)
-- Number removal	Digits don't contribute to sentiment
-- Punctuation removal	Standardizes tokens.
-- Stopword removal	Removes common words without signal.
-- Lemmatisation	Reduces words to base form.
+Step	
+- Lowercasing	- Ensures consistent tokenization.
+- URL removal -	URLs carry no sentiment information
+- Mention removal (@handles)	- User handles are uninformative
+- Hashtag symbol removal (#) -	Retains the word (e.g., #amazing)
+- Number removal -	Digits don't contribute to sentiment
+- Punctuation removal -	Standardizes tokens.
+- Stopword removal -	Removes common words without signal.
+- Lemmatisation -	Reduces words to base form.
 
 2. Label Encoding
 Binary Classification: Positive (1) vs Negative (0) — neutral tweets excluded.
@@ -131,7 +131,7 @@ ngram_range=(1, 2) (unigrams + bigrams)
 
 
 ### Modeling
-he goal was to predict sentiment from tweet text. Two classification tasks were addressed:
+The goal was to predict sentiment from tweet text. Two classification tasks were addressed:
 
 1. Binary Classification (Positive vs Negative)
 Model	Description: Logistic Regression	Baseline model due to interpretability, uses L2 regularization.
@@ -192,23 +192,23 @@ Across all models, four patterns consistently drove sentiment classification:
 The **Naive Bayes (Binary) model** achieved the best performance with an **F1 Score of 0.8086** (exceeding our 0.80 target) and **85.8% accuracy**.
 
 ### Recommendations
-Based on key linguistic patterns the following were identified:
+Based on key linguistic patterns, the following were identified:
 
 - Monitor Positive Keywords	Track words like "love," "great," "amazing" as early indicators of campaign success
-- Flag Negative Keywords	Prioritize tweets containing "crash," "dead," "battery" for immediate support response.
-- Track Sentiment Trends	Monitor sentiment before and after product launches.
-- Identify Brand Advocates	Engage users who consistently post positive content.
-- Route Negative Tweets	Automatically escalate negative tweets to support channels.
-- Apply Confidence Threshold - Use threshold of 0.7 to balance automation with prediction reliability.
+- Flag Negative Keywords - Prioritize tweets containing "crash," "dead," "battery" for immediate support response.
+- Track Sentiment Trends -	Monitor sentiment before and after product launches.
+- Identify Brand Advocates -	Engage users who consistently post positive content.
+- Route Negative Tweets -	Automatically escalate negative tweets to support channels.
+- Apply Confidence Threshold - Use a threshold of 0.7 to balance automation with prediction reliability.
 
 ## Next Steps
 To enhance the impact of this project:
 
 Priority	Task	Description
 - High	Transformer Models	- Implement BERT/RoBERTa for better context and sarcasm detection
-- High	Real-Time Pipeline	Integrate with Twitter/X API for live sentiment monitoring
-- Medium	Interactive Dashboard	Enhance Tableau dashboard with live data feeds
-- Medium	Multilingual Support - xtend analysis to additional languages
+- High	Real-Time Pipeline -	Integrate with Twitter/X API for live sentiment monitoring
+- Medium	Interactive Dashboard	 - Enhance Tableau dashboard with live data feeds
+- Medium	Multilingual Support - Extend analysis to additional languages
 - Low	Aspect-Based Sentiment - Analyze sentiment toward specific product features
 - Low	Emoji Mapping	- Add emoji-to-sentiment mapping instead of removal
 
@@ -230,7 +230,7 @@ bash
 git clone https://github.com/your-username/twitter-sentiment-analysis.git
 cd twitter-sentiment-analysis
 
-## 2. Create virtual environment
+## 2. Create a virtual environment
 python -m venv venv
 
 ## 3. Activate virtual environment
@@ -258,107 +258,64 @@ nltk
 wordcloud
 jupyter
 
-## Project Structure
-
-
-```
-twitter-sentiment-analysis/
-|
-|-- data/
-|   `-- judge-1377884607_tweet_product_company.csv
-|
-|-- figures/
-|   |-- feature_correlation_heatmap.png
-|   |-- model_comparison.png
-|   |-- sentiment_distribution.png
-|   |-- top_10_products.png
-|   |-- twitter-logo.jpg
-|   |-- wordcloud_all.png
-|   |-- wordcloud_negative.png
-|   `-- wordcloud_positive.png
-|
-|-- notebooks/
-|   `-- final_notebook.ipynb
-|
-|-- presentation/
-|   `-- Twitter Sentiment Analysis.pdf
-|
-|-- src/
-|   |-- __init__.py
-|   |-- clean_text.py
-|   |-- compare_models.py
-|   |-- constants.py
-|   |-- evaluate.py
-|   |-- export_tableau_data.py
-|   |-- features.py
-|   |-- load_data.py
-|   |-- main.py
-|   |-- pipeline.py
-|   |-- preprocess.py
-|   |-- split_data.py
-|   |-- train_binary.py
-|   |-- train_multiclass.py
-|   |-- vectorize.py
-|   `-- visualize.py
-|
-|-- tableau/
-|
-|-- .gitignore
-|-- PROJECT_PLAN.md
-|-- README.md
-`-- requirements.txt
-
-
 
  ## Project Structure
-
-```twitter-sentiment-analysis/
-│
-├── data/
-│   └── judge-1377884607_tweet_product_company.csv
-│
-├── figures/
-│   ├── feature_correlation_heatmap.png
-│   ├── model_comparison.png
-│   ├── sentiment_distribution.png
-│   ├── top_10_products.png
-│   ├── twitter-logo.jpg
-│   ├── wordcloud_all.png
-│   ├── wordcloud_negative.png
-│   └── wordcloud_positive.png
-│
-├── notebooks/
-│   └── final_notebook.ipynb
-│
-├── presentation/
-│   └── Twitter Sentiment Analysis.pdf
-│
-├── src/
-│   ├── __init__.py
-│   ├── clean_text.py
-│   ├── compare_models.py
-│   ├── constants.py
-│   ├── evaluate.py
-│   ├── export_tableau_data.py
-│   ├── features.py
-│   ├── load_data.py
-│   ├── main.py
-│   ├── pipeline.py
-│   ├── preprocess.py
-│   ├── split_data.py
-│   ├── train_binary.py
-│   ├── train_multiclass.py
-│   ├── vectorize.py
-│   └── visualize.py
-│
-├── tableau/
-│
-├── .gitignore
-├── PROJECT_PLAN.md
-├── README.md
-└── requirements.txt
-
-```
+Phase-4-Twitter-Sentiment-Analysis/  
+│  
+├── src/ # Python modules (Day 1-4)  
+│ ├── constants.py # Day 1 - Shared variables, paths, labels (Daniella)  
+│ ├── load\_data.py # Day 1 - CSV loading and filtering (Verah)  
+│ ├── clean\_text.py # Day 1 - Text cleaning pipeline (Eve)  
+│ ├── visualize.py # Day 1 - EDA plots and word clouds (Naomi)  
+│ ├── preprocess.py # Day 2 - Full preprocessing pipeline (Daniella)  
+│ ├── vectorize.py # Day 2 - TF-IDF vectorization (Eve)  
+│ ├── features.py # Day 2 - Feature engineering (Verah)  
+│ ├── split\_data.py # Day 2 - Train/validation/test split (Naomi)  
+│ ├── train\_binary.py # Day 3 - Binary classification models (Daniella)  
+│ ├── train\_multiclass.py # Day 3 - Multiclass classification models (Eve)  
+│ ├── evaluate.py # Day 3 - Evaluation metrics and confusion matrices (Verah)  
+│ ├── compare\_models.py # Day 3 - Model comparison and ranking (Naomi)  
+│ ├── pipeline.py # Day 4 - End-to-end prediction pipeline (Eve)  
+│ └── init.py # Package initializer  
+│  
+├── notebooks/ # Jupyter notebooks  
+│ └── final\_presentation.ipynb # Day 4 - Complete analysis notebook (Daniella)  
+│  
+├── tableau/ # Tableau dashboard files (Day 4 - Naomi)  
+│ ├── SXSW Twitter Sentiment Analysis.twb # Tableau workbook  
+│ ├── ~SXSW Twitter Sentiment Analysis\_\_22100.twbr # Tableau backup  
+│ ├── apple\_vs\_google.csv # Exported data for Tableau  
+│ ├── model\_results.csv # Model performance metrics  
+│ ├── sentiment\_summary.csv # Sentiment distribution summary  
+│ ├── top\_products.csv # Top mentioned products  
+│ └── tweets\_clean.csv # Cleaned tweet data for Tableau  
+│  
+├── figures/ # Generated visualizations (Day 1-4)  
+│ ├── sentiment\_distribution.png # Sentiment bar chart  
+│ ├── top\_10\_products.png # Top products horizontal bar chart  
+│ ├── wordcloud\_all.png # Word cloud - all tweets  
+│ ├── wordcloud\_positive.png # Word cloud - positive tweets  
+│ ├── wordcloud\_negative.png # Word cloud - negative tweets  
+│ ├── confusion\_matrices.png # Confusion matrices for all models  
+│ ├── model\_comparison.png # Model performance comparison chart  
+│ ├── feature\_correlation\_heatmap.png # Feature correlation heatmap  
+│ └── twitter-logo.jpg # Logo for visualizations  
+│  
+├── data/ # Dataset  
+│ └── judge-1377884607\_tweet\_product\_company.csv # Raw tweet data  
+│  
+├── docs/ # Documentation (Day 4)  
+│ ├── README.md # Project documentation (Verah)  
+│ └── presentation\_slides.md # Presentation outline (Daniella)  
+│  
+├── models/ # Saved trained models (generated)  
+│ ├── binary\_model.pkl # Best binary model  
+│ ├── multiclass\_model.pkl # Best multiclass model  
+│ └── vectorizer.pkl # Fitted TF-IDF vectorizer  
+│  
+├── requirements.txt # Python dependencies  
+├── .gitignore # Git ignore rules  
+└── PROJECT\_PLAN.md # Project roadmap and team assignments
 
 ###### Team Structure
 
