@@ -50,6 +50,19 @@ To address these challenges, this project develops a sentiment analysis pipeline
 
 Ultimately, the goal is to turn large volumes of social media data into clear, actionable insights that support better decision-making in marketing, product development, and customer engagement.
 
+## Stakeholders
+
+This project serves multiple stakeholder groups within a technology organization. Each group derives different value from the sentiment analysis pipeline.
+
+### Primary Stakeholders
+
+| Stakeholder | Role | Key Questions | Value from This Project |
+|-------------|------|---------------|-------------------------|
+| **Marketing Teams** | Brand managers, campaign strategists | Is our campaign working? What words resonate with customers? | Track positive word frequency, measure campaign effectiveness, identify brand advocates |
+| **Product Teams** | Product managers, developers | What are customers complaining about? What features do they love? | Prioritize issues from negative tweets, track feature requests from neutral tweets |
+| **Customer Support Teams** | Support managers, agents | Which tweets need immediate response? Are complaints spiking? | Real-time negative tweet alerts, automated routing, rapid response |
+| **Data Science Teams** | ML engineers, data analysts | How can we improve model accuracy? Is the pipeline running? | Model maintenance framework, retraining schedule, performance metrics |
+
 ---
 
 ## Data Understanding
