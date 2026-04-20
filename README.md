@@ -227,7 +227,8 @@ Effective implementation of these insights requires collaboration between:
 # Setup Instructions
 bash
 ## 1. Clone the repository
-git clone https://github.com/your-username/twitter-sentiment-analysis.git
+git clone https://github.com/Daniellamuli/Phase-4-Twitter-Sentiment-Analysis.git
+
 cd twitter-sentiment-analysis
 
 ## 2. Create a virtual environment
