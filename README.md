@@ -5,6 +5,7 @@
 
 ## Team Members
 Daniella Muli • Eve Michelle • Naomi Opiyo • Pheonverah Achieng'
+
 </div>
 
 ---
@@ -33,28 +34,34 @@ At this scale, manual analysis becomes not just inefficient, but unreliable—sl
 
 These challenges translate into several practical limitations for organizations managing their digital reputation:
 
-- **Scalability Gap**  
-  The volume of social media data exceeds what teams can realistically monitor in real time, leading to missed insights.
-
-- **Undetected Reputation Risks**  
-  Negative sentiment can gain traction before teams are able to respond, potentially causing lasting brand damage.
-
-- **Fragmented Insight & Comparison**  
-  There is no consistent, objective way to track brand health or compare how consumers perceive Apple versus Google products.
-
-- **Reactive vs Proactive Decision-Making**  
-  Without structured sentiment data, teams are often forced into reactive responses instead of proactively managing brand perception.
+- **Scalability Gap** — The volume of social media data exceeds what teams can realistically monitor in real time, leading to missed insights.
+- **Undetected Reputation Risks** — Negative sentiment can gain traction before teams are able to respond, potentially causing lasting brand damage.
+- **Fragmented Insight & Comparison** — There is no consistent, objective way to track brand health or compare how consumers perceive Apple versus Google products.
+- **Reactive vs Proactive Decision-Making** — Without structured sentiment data, teams are often forced into reactive responses instead of proactively managing brand perception.
 
 ### Objective
 
 To address these challenges, this project develops a sentiment analysis pipeline that automates the classification of tweets. By transforming unstructured text into structured insights, the model enables organizations to:
 
-- **Monitor Brand Health** in real time  
-- **Detect negative sentiment early** to mitigate risks  
-- **Identify positive sentiment** to understand what resonates with users  
-- **Compare market perception** between competing products  
+- **Monitor Brand Health** in real time
+- **Detect negative sentiment early** to mitigate risks
+- **Identify positive sentiment** to understand what resonates with users
+- **Compare market perception** between competing products
 
 Ultimately, the goal is to turn large volumes of social media data into clear, actionable insights that support better decision-making in marketing, product development, and customer engagement.
+
+## Stakeholders
+
+This project serves multiple stakeholder groups within a technology organization. Each group derives different value from the sentiment analysis pipeline.
+
+### Primary Stakeholders
+
+| Stakeholder | Role | Key Questions | Value from This Project |
+|-------------|------|---------------|-------------------------|
+| **Marketing Teams** | Brand managers, campaign strategists | Is our campaign working? What words resonate with customers? | Track positive word frequency, measure campaign effectiveness, identify brand advocates |
+| **Product Teams** | Product managers, developers | What are customers complaining about? What features do they love? | Prioritize issues from negative tweets, track feature requests from neutral tweets |
+| **Customer Support Teams** | Support managers, agents | Which tweets need immediate response? Are complaints spiking? | Real-time negative tweet alerts, automated routing, rapid response |
+| **Data Science Teams** | ML engineers, data analysts | How can we improve model accuracy? Is the pipeline running? | Model maintenance framework, retraining schedule, performance metrics |
 
 ---
 
@@ -62,29 +69,27 @@ Ultimately, the goal is to turn large volumes of social media data into clear, a
 
 The dataset used in this project was sourced from CrowdFlower and made available via data.world. It contains 9,093 tweets, each labeled by human annotators to reflect the sentiment expressed.
 
-### Data Structure:
+### Data Structure
 
-* **`tweet_text`**: The raw text content of the tweet.
-* **`emotion_in_tweet_is_directed_at`**: The specific product or brand the emotion is targeting (e.g., iPad, iPhone, Google, Android).
-* **`is_there_an_emotion_directed_at_a_brand_or_product`**: The target variable representing sentiment (e.g., positive, negative, neutral).
+| Column | Description |
+|--------|-------------|
+| `tweet_text` | The raw text content of the tweet |
+| `emotion_in_tweet_is_directed_at` | The specific product or brand the emotion is targeting (e.g., iPad, iPhone, Google, Android) |
+| `is_there_an_emotion_directed_at_a_brand_or_product` | The target variable representing sentiment (e.g., positive, negative, neutral) |
 
-#### Sentiment Distribution
-Sentiment 	   Count	         Percentage
+### Sentiment Distribution
 
-- Positive	  2,978	           33.3%
-
-- Neutral	    5,389	            60.3%
-
-- Negative	    570	          6.4%
-
+| Sentiment | Count | Percentage |
+|-----------|-------|------------|
+| Positive | 2,978 | 33.3% |
+| Neutral | 5,389 | 60.3% |
+| Negative | 570 | 6.4% |
 
 The dataset is heavily imbalanced, with negative sentiment representing only ~6% of labeled examples. This directly influenced our choice of F1 score over accuracy as the primary evaluation metric.
 
 ### Top Mentioned Products
 
-![](figures/top_10_products.png)
-
-**This chart shows the most frequently mentioned products and brands across all tweets.
+![Top 10 Products](figures/top_10_products.png)
 
 | Rank | Product | Mention Count | Business Insight |
 |------|---------|---------------|------------------|
@@ -94,67 +99,90 @@ The dataset is heavily imbalanced, with negative sentiment representing only ~6%
 | 4 | Android | High | Primary competitor to iPhone |
 | 5 | iPad or iPhone App | Medium | Developer ecosystem matters |
 
-**Why this matters:**
- We focused our sentiment analysis on these top products since they represent the majority of conversations. Products with fewer mentions were grouped into broader categories during feature engineering.
+We focused our sentiment analysis on these top products since they represent the majority of conversations. Products with fewer mentions were grouped into broader categories during feature engineering.
 
+---
 
-### Data Preparation
-The raw tweet dataset underwent a series of essential data preparation steps to ensure its quality and suitability for machine learning:
+## Data Preparation
 
-1. Text Cleaning Pipeline
+### 1. Text Cleaning Pipeline
+
 Raw tweet text is extremely noisy. The following cleaning steps were applied in sequence:
 
-Step	Operation	Rationale
-- Lowercasing	Ensures consistent tokenization.
-- URL removal	URLs carry no sentiment information
-- 	Mention removal (@handles)	User handles are uninformative
-- Hashtag symbol removal (#)	Retains the word (e.g., #amazing)
-- Number removal	Digits don't contribute to sentiment
-- Punctuation removal	Standardizes tokens.
-- Stopword removal	Removes common words without signal.
-- Lemmatisation	Reduces words to base form.
+| Step | Rationale |
+|------|-----------|
+| Lowercasing | Ensures consistent tokenization |
+| URL removal | URLs carry no sentiment information |
+| Mention removal (`@handles`) | User handles are uninformative |
+| Hashtag symbol removal (`#`) | Retains the word (e.g., `#amazing` → `amazing`) |
+| Number removal | Digits don't contribute to sentiment |
+| Punctuation removal | Standardizes tokens |
+| Stopword removal | Removes common words without signal |
+| Lemmatisation | Reduces words to base form |
 
-2. Label Encoding
-Binary Classification: Positive (1) vs Negative (0) — neutral tweets excluded.
+### 2. Label Encoding
 
-Multiclass Classification: Positive (2), Neutral (1), Negative(0).
+- **Binary Classification** — Positive (`1`) vs. Negative (`0`); neutral tweets excluded
+- **Multiclass Classification** — Positive (`2`), Neutral (`1`), Negative (`0`)
 
-3. Data Splitting
+### 3. Data Splitting
+
 The dataset was split into training (80%) and test (20%) subsets using stratified sampling to maintain class proportions.
 
-4. Feature Engineering
+### 4. Feature Engineering
 
 TF-IDF Vectorisation with:
 
-max_features=5000 (top 5,000 most informative terms)
-ngram_range=(1, 2) (unigrams + bigrams)
+- `max_features = 5000` (top 5,000 most informative terms)
+- `ngram_range = (1, 2)` (unigrams + bigrams)
 
+---
 
-### Modeling
-he goal was to predict sentiment from tweet text. Two classification tasks were addressed:
+## Modelling
 
-1. Binary Classification (Positive vs Negative)
-Model	Description: Logistic Regression	Baseline model due to interpretability, uses L2 regularization.
-Multinomial Naive Bayes	Probabilistic classifier designed for text data
-2. Multiclass Classification (Positive vs Neutral vs Negative)
-Random Forest	Ensemble model with 100 trees, max depth 10
-Linear SVM	Optimized for high-dimensional sparse text data
+The goal was to predict sentiment from tweet text. Two classification tasks were addressed:
 
-### Model Evaluation
-Model performance was primarily evaluated using the Weighted F1 Score due to class imbalance.
+### Binary Classification (Positive vs. Negative)
+
+| Model | Description |
+|-------|-------------|
+| Logistic Regression | Baseline model due to interpretability, uses L2 regularization |
+| Multinomial Naive Bayes | Probabilistic classifier designed for text data |
+
+### Multiclass Classification (Positive vs. Neutral vs. Negative)
+
+| Model | Description |
+|-------|-------------|
+| Random Forest | Ensemble model with 100 trees, max depth 10 |
+| Linear SVM | Optimized for high-dimensional sparse text data |
+
+---
+
+## Model Evaluation
+
+Model performance was primarily evaluated using the **Weighted F1 Score** due to class imbalance.
+
+| Model | Accuracy | Precision | Recall | F1 Score |
+|-------|----------|-----------|--------|----------|
+| Naive Bayes (Binary) | 0.8577 | 0.8685 | 0.8577 | **0.8086** |
+| Logistic Regression (Binary) | 0.8563 | 0.8667 | 0.8563 | 0.8058 |
+| SVM (Multiclass) | 0.6818 | 0.6716 | 0.6818 | **0.6726** |
+| Random Forest (Multiclass) | 0.6107 | 0.6474 | 0.6107 | 0.4731 |
 
 The Naive Bayes (Binary) model is the strongest and most reliable choice, delivering the best overall performance with an F1 score of 0.8086 and an accuracy of 0.8577. It not only outperforms all other models in the evaluation but also demonstrates a strong balance between precision (0.8685) and recall (0.8577), meaning it consistently makes accurate predictions while minimizing both false positives and false negatives. This makes it a dependable model for real-world deployment compared to Logistic Regression, SVM, and Random Forest.
 
-![](figures/confusion_matrices.png)
+### Confusion Matrices
 
-True Positives (TP): 595 - Correctly predicted positive sentiment.
+![Confusion Matrices](figures/confusion_matrices.png)
 
-True Negatives (TN): 14 - Correctly predicted negative sentiment.
+For the best-performing binary model (Naive Bayes):
 
-False Positives (FP): 100 - Incorrectly predicted as positive sentiment.
+| | Predicted Negative | Predicted Positive |
+|-|-------------------|-------------------|
+| **Actual Negative** | 14 (TN) | 100 (FP) |
+| **Actual Positive** | 1 (FN) | 595 (TP) |
 
-False Negatives (FN): 1 - Incorrectly predicted as negative sentiment.
-
+---
 
 ## Key Findings
 
@@ -165,8 +193,8 @@ As shown in the word clouds below, certain words strongly correlate with sentime
 - **Positive tweets** frequently contain: *love*, *amazing*, *great*, *awesome*
 - **Negative tweets** frequently contain: *crash*, *dead*, *hate*, *terrible*
 
-![](figures/wordcloud_positive.png)
-![](figures/wordcloud_negative.png)
+![Positive Word Cloud](figures/wordcloud_positive.png)
+![Negative Word Cloud](figures/wordcloud_negative.png)
 
 ### 2. What We Learned
 
@@ -181,74 +209,86 @@ As shown in the word clouds below, certain words strongly correlate with sentime
 
 Across all models, four patterns consistently drove sentiment classification:
 
-1. **Positive emotion words** (love, amazing, great)
-2. **Negative problem indicators** (crash, dead, hate)
-3. **Punctuation patterns** (! for excitement, ? for complaints)
-4. **Informational language** (neutral, factual statements)
+1. **Positive emotion words** — love, amazing, great
+2. **Negative problem indicators** — crash, dead, hate
+3. **Punctuation patterns** — `!` for excitement, `?` for complaints
+4. **Informational language** — neutral, factual statements
 
-### Conclusion
- Sentiment is expressed more through **word choice and tone** than tweet structure alone.
+**Conclusion:** Sentiment is expressed more through word choice and tone than tweet structure alone.
 
 The **Naive Bayes (Binary) model** achieved the best performance with an **F1 Score of 0.8086** (exceeding our 0.80 target) and **85.8% accuracy**.
 
-### Recommendations
-Based on key linguistic patterns the following were identified:
+---
 
-- Monitor Positive Keywords	Track words like "love," "great," "amazing" as early indicators of campaign success
-- Flag Negative Keywords	Prioritize tweets containing "crash," "dead," "battery" for immediate support response.
-- Track Sentiment Trends	Monitor sentiment before and after product launches.
-- Identify Brand Advocates	Engage users who consistently post positive content.
-- Route Negative Tweets	Automatically escalate negative tweets to support channels.
-- Apply Confidence Threshold - Use threshold of 0.7 to balance automation with prediction reliability.
+## Recommendations
+
+Based on key linguistic patterns, the following actions were identified:
+
+| Recommendation | Action |
+|----------------|--------|
+| Monitor Positive Keywords | Track words like "love," "great," "amazing" as early indicators of campaign success |
+| Flag Negative Keywords | Prioritize tweets containing "crash," "dead," "battery" for immediate support response |
+| Track Sentiment Trends | Monitor sentiment before and after product launches |
+| Identify Brand Advocates | Engage users who consistently post positive content |
+| Route Negative Tweets | Automatically escalate negative tweets to support channels |
+| Apply Confidence Threshold | Use a threshold of 0.7 to balance automation with prediction reliability |
+
+---
 
 ## Next Steps
-To enhance the impact of this project:
 
-Priority	Task	Description
-- High	Transformer Models	- Implement BERT/RoBERTa for better context and sarcasm detection
-- High	Real-Time Pipeline	Integrate with Twitter/X API for live sentiment monitoring
-- Medium	Interactive Dashboard	Enhance Tableau dashboard with live data feeds
-- Medium	Multilingual Support - xtend analysis to additional languages
-- Low	Aspect-Based Sentiment - Analyze sentiment toward specific product features
-- Low	Emoji Mapping	- Add emoji-to-sentiment mapping instead of removal
+| Priority | Task | Description |
+|----------|------|-------------|
+| High | Transformer Models | Implement BERT/RoBERTa for better context and sarcasm detection |
+| High | Real-Time Pipeline | Integrate with Twitter/X API for live sentiment monitoring |
+| Medium | Interactive Dashboard | Enhance Tableau dashboard with live data feeds |
+| Medium | Multilingual Support | Extend analysis to additional languages |
+| Low | Aspect-Based Sentiment | Analyze sentiment toward specific product features |
+| Low | Emoji Mapping | Add emoji-to-sentiment mapping instead of removal |
 
-Stakeholder Collaboration
+### Stakeholder Collaboration
 
 Effective implementation of these insights requires collaboration between:
 
+| Team | Role |
+|------|------|
+| Marketing Teams | Use sentiment trends to measure campaign effectiveness |
+| Product Teams | Prioritize issues highlighted in negative tweets |
+| Customer Support Teams | Automatically route negative tweets for rapid response |
+| Data Science Teams | Maintain and improve models with new data |
 
-- Marketing Teams: Use sentiment trends to measure campaign effectiveness.
-- Product Teams:	Prioritize issues highlighted in negative tweets
-- Customer Support Teams: Automatically route negative tweets for rapid response
-- Data Science Teams: Maintain and improve models with new data
-- By integrating predictive analytics into brand management strategies, organizations can design more targeted and effective reputation management campaigns.
+By integrating predictive analytics into brand management strategies, organizations can design more targeted and effective reputation management campaigns.
 
+---
 
-# Setup Instructions
-bash
-## 1. Clone the repository
-git clone https://github.com/your-username/twitter-sentiment-analysis.git
-cd twitter-sentiment-analysis
+## Setup Instructions
 
-## 2. Create virtual environment
+```bash
+# 1. Clone the repository
+git clone https://github.com/Daniellamuli/Phase-4-Twitter-Sentiment-Analysis.git
+cd Phase-4-Twitter-Sentiment-Analysis
+
+# 2. Create a virtual environment
 python -m venv venv
 
-## 3. Activate virtual environment
-### Windows:
+# 3. Activate virtual environment
+# Windows:
 venv\Scripts\activate
-### macOS/Linux:
+# macOS/Linux:
 source venv/bin/activate
 
-## 4. Install dependencies
+# 4. Install dependencies
 pip install -r requirements.txt
 
-## 5. Download NLTK data (automatically handled in notebook)
-
-## 6. Launch Jupyter Notebook
+# 5. Launch Jupyter Notebook
 jupyter notebook
+```
 
-## Requirements.txt
-text
+> NLTK data is downloaded automatically when the notebook is run.
+
+### requirements.txt
+
+```
 numpy
 pandas
 matplotlib
@@ -257,116 +297,80 @@ scikit-learn
 nltk
 wordcloud
 jupyter
+```
+
+---
 
 ## Project Structure
 
-
 ```
-twitter-sentiment-analysis/
-|
-|-- data/
-|   `-- judge-1377884607_tweet_product_company.csv
-|
-|-- figures/
-|   |-- feature_correlation_heatmap.png
-|   |-- model_comparison.png
-|   |-- sentiment_distribution.png
-|   |-- top_10_products.png
-|   |-- twitter-logo.jpg
-|   |-- wordcloud_all.png
-|   |-- wordcloud_negative.png
-|   `-- wordcloud_positive.png
-|
-|-- notebooks/
-|   `-- final_notebook.ipynb
-|
-|-- presentation/
-|   `-- Twitter Sentiment Analysis.pdf
-|
-|-- src/
-|   |-- __init__.py
-|   |-- clean_text.py
-|   |-- compare_models.py
-|   |-- constants.py
-|   |-- evaluate.py
-|   |-- export_tableau_data.py
-|   |-- features.py
-|   |-- load_data.py
-|   |-- main.py
-|   |-- pipeline.py
-|   |-- preprocess.py
-|   |-- split_data.py
-|   |-- train_binary.py
-|   |-- train_multiclass.py
-|   |-- vectorize.py
-|   `-- visualize.py
-|
-|-- tableau/
-|
-|-- .gitignore
-|-- PROJECT_PLAN.md
-|-- README.md
-`-- requirements.txt
-
-
-
- ## Project Structure
-
-```twitter-sentiment-analysis/
+Phase-4-Twitter-Sentiment-Analysis/
+│
+├── src/                                        # Python modules
+│   ├── constants.py                            # Shared variables, paths, labels (Daniella)
+│   ├── load_data.py                            # CSV loading and filtering (Verah)
+│   ├── clean_text.py                           # Text cleaning pipeline (Eve)
+│   ├── visualize.py                            # EDA plots and word clouds (Naomi)
+│   ├── preprocess.py                           # Full preprocessing pipeline (Daniella)
+│   ├── vectorize.py                            # TF-IDF vectorization (Eve)
+│   ├── features.py                             # Feature engineering (Verah)
+│   ├── split_data.py                           # Train/validation/test split (Naomi)
+│   ├── train_binary.py                         # Binary classification models (Daniella)
+│   ├── train_multiclass.py                     # Multiclass classification models (Eve)
+│   ├── evaluate.py                             # Evaluation metrics and confusion matrices (Verah)
+│   ├── compare_models.py                       # Model comparison and ranking (Naomi)
+│   ├── pipeline.py                             # End-to-end prediction pipeline (Eve)
+│   └── __init__.py                             # Package initializer
+│
+├── notebooks/
+│   └── final_presentation.ipynb               # Complete analysis notebook (Daniella)
+│
+├── tableau/                                    # Tableau dashboard files (Naomi)
+│   ├── SXSW Twitter Sentiment Analysis.twb
+│   ├── apple_vs_google.csv
+│   ├── model_results.csv
+│   ├── sentiment_summary.csv
+│   ├── top_products.csv
+│   └── tweets_clean.csv
+│
+├── figures/                                    # Generated visualizations
+│   ├── sentiment_distribution.png
+│   ├── top_10_products.png
+│   ├── wordcloud_all.png
+│   ├── wordcloud_positive.png
+│   ├── wordcloud_negative.png
+│   ├── confusion_matrices.png
+│   ├── model_comparison.png
+│   ├── feature_correlation_heatmap.png
+│   └── twitter-logo.jpg
 │
 ├── data/
 │   └── judge-1377884607_tweet_product_company.csv
 │
-├── figures/
-│   ├── feature_correlation_heatmap.png
-│   ├── model_comparison.png
-│   ├── sentiment_distribution.png
-│   ├── top_10_products.png
-│   ├── twitter-logo.jpg
-│   ├── wordcloud_all.png
-│   ├── wordcloud_negative.png
-│   └── wordcloud_positive.png
+├── docs/
+│   ├── README.md
+│   └── presentation_slides.md
 │
-├── notebooks/
-│   └── final_notebook.ipynb
+├── models/                                     # Saved trained models (generated)
+│   ├── binary_model.pkl
+│   ├── multiclass_model.pkl
+│   └── vectorizer.pkl
 │
-├── presentation/
-│   └── Twitter Sentiment Analysis.pdf
-│
-├── src/
-│   ├── __init__.py
-│   ├── clean_text.py
-│   ├── compare_models.py
-│   ├── constants.py
-│   ├── evaluate.py
-│   ├── export_tableau_data.py
-│   ├── features.py
-│   ├── load_data.py
-│   ├── main.py
-│   ├── pipeline.py
-│   ├── preprocess.py
-│   ├── split_data.py
-│   ├── train_binary.py
-│   ├── train_multiclass.py
-│   ├── vectorize.py
-│   └── visualize.py
-│
-├── tableau/
-│
+├── requirements.txt
 ├── .gitignore
-├── PROJECT_PLAN.md
-├── README.md
-└── requirements.txt
-
+└── PROJECT_PLAN.md
 ```
 
-###### Team Structure
+---
 
-- Daniella Muli (Lead)	- Preprocessing pipeline, binary classification, final notebook.
-- Eve Michelle	- Data ingestion, text vectorisation (TF-IDF), multiclass modelling.
-- Naomi Opiyo	- Exploratory data analysis, data splitting, model comparison.
-- Pheonverah Achieng'	- Text cleaning, feature engineering, model evaluation.
+## Team Structure
 
+| Member | Role | Responsibilities |
+|--------|------|-----------------|
+| **Daniella Muli** *(Lead)* | Project Lead | Preprocessing pipeline, binary classification, final notebook |
+| **Eve Michelle** | ML Engineer | Data ingestion, TF-IDF vectorisation, multiclass modelling, deployment pipeline |
+| **Naomi Opiyo** | Data Analyst | Exploratory data analysis, data splitting, model comparison, Tableau dashboard |
+| **Pheonverah Achieng'** | NLP Engineer | Text cleaning, feature engineering, model evaluation |
 
 ---
 
@@ -374,16 +378,18 @@ twitter-sentiment-analysis/
 
 To make our results accessible to non-technical stakeholders, we created an interactive Tableau dashboard that visualizes the key findings from our sentiment analysis.
 
-**Click the link below to explore the dashboard:**https://public.tableau.com/views/SXSWTwitterSentimentAnalysis/Dashboard1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+**[Click here to explore the dashboard](https://public.tableau.com/views/SXSWTwitterSentimentAnalysis/Dashboard1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)**
 
+---
 
+## Acknowledgments
 
-##### Acknowledgments
-- CrowdFlower (now Figure Eight) for providing the annotated dataset.
+- CrowdFlower (now Figure Eight) for providing the annotated dataset
 - data.world for hosting the SXSW Tweet Sentiment dataset
 - The open-source Python community for the amazing libraries used
 
-##### License
-This project is licensed under the MIT License.
+---
 
+## License
 
+This project is licensed under the **MIT License**.
