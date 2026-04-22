@@ -347,15 +347,10 @@ Phase-4-Twitter-Sentiment-Analysis/
 ├── data/
 │   └── judge-1377884607_tweet_product_company.csv
 │
-├── docs/
-│   ├── README.md
-│   └── presentation_slides.md
+├── presentation/
+│   └── presentation_slides.pdf
 │
-├── models/                                     # Saved trained models (generated)
-│   ├── binary_model.pkl
-│   ├── multiclass_model.pkl
-│   └── vectorizer.pkl
-│
+├── README.md                                     
 ├── requirements.txt
 ├── .gitignore
 └── PROJECT_PLAN.md
