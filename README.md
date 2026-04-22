@@ -126,8 +126,15 @@ Raw tweet text is extremely noisy. The following cleaning steps were applied in 
 - **Multiclass Classification** — Positive (`2`), Neutral (`1`), Negative (`0`)
 
 ### 3. Data Splitting
+## Data Preparation
 
-The dataset was split into training (80%) and test (20%) subsets using stratified sampling to maintain class proportions.
+### Data Splitting
+ 
+> This project references two splitting approaches:
+> - An **80/20 train-test split** used during notebook-level experimentation and model evaluation  
+> - A **60/20/20 train-validation-test split** used in the modular pipeline for improved model tuning  
+>
+> Final reported results are based on the 80/20 split to ensure consistent comparison across models, while the 60/20/20 split reflects a more robust, production-oriented workflow.
 
 ### 4. Feature Engineering
 
@@ -164,23 +171,23 @@ Model performance was primarily evaluated using the **Weighted F1 Score** due to
 
 | Model | Accuracy | Precision | Recall | F1 Score |
 |-------|----------|-----------|--------|----------|
-| Naive Bayes (Binary) | 0.8577 | 0.8685 | 0.8577 | **0.8086** |
-| Logistic Regression (Binary) | 0.8563 | 0.8667 | 0.8563 | 0.8058 |
-| SVM (Multiclass) | 0.6818 | 0.6716 | 0.6818 | **0.6726** |
-| Random Forest (Multiclass) | 0.6107 | 0.6474 | 0.6107 | 0.4731 |
+| Naive Bayes (Binary) | 0.8577 | 0.8685 | 0.8577 | 0.8086 |
+| Logistic Regression (Binary) | 0.8479 | 0.8690 | 0.8479 | **0.8559** |
+| SVM (Multiclass) | 0.6711 | 0.6721 | 0.6711 | **0.6714** |
+| Random Forest (Multiclass) | 0.5772 | 0.6279 | 0.5772 | 0.5947 |
 
-The Naive Bayes (Binary) model is the strongest and most reliable choice, delivering the best overall performance with an F1 score of 0.8086 and an accuracy of 0.8577. It not only outperforms all other models in the evaluation but also demonstrates a strong balance between precision (0.8685) and recall (0.8577), meaning it consistently makes accurate predictions while minimizing both false positives and false negatives. This makes it a dependable model for real-world deployment compared to Logistic Regression, SVM, and Random Forest.
+The Linear Regression (Binary) model is the strongest and most reliable choice, delivering the best overall performance with an F1 score of 0.8559 and an accuracy of 0.8479. It not only outperforms all other models in the evaluation but also demonstrates a strong balance between precision (0.8690) and recall (0.8479), meaning it consistently makes accurate predictions while minimizing both false positives and false negatives. This makes it a dependable model for real-world deployment compared to Naive Bayes, SVM, and Random Forest.
 
 ### Confusion Matrices
 
 ![Confusion Matrices](figures/confusion_matrices.png)
 
-For the best-performing binary model (Naive Bayes):
+For the best-performing binary model (Logistic Regression):
 
 | | Predicted Negative | Predicted Positive |
 |-|-------------------|-------------------|
-| **Actual Negative** | 14 (TN) | 100 (FP) |
-| **Actual Positive** | 1 (FN) | 595 (TP) |
+| **Actual Negative** | 78(TN) | 36 (FP) |
+| **Actual Positive** | 72 (FN) | 524 (TP) |
 
 ---
 
@@ -203,7 +210,7 @@ As shown in the word clouds below, certain words strongly correlate with sentime
 | Negative sentiment is hardest to detect | Only ~6% of dataset — needs more examples |
 | TF-IDF with unigrams + bigrams works | Captures sentiment-bearing phrases effectively |
 | Words matter more than structure | Linguistic features > tweet length/metadata |
-| Both success criteria met | Binary F1: 0.8086, Multiclass F1: 0.70 |
+| Both success criteria met | Binary F1: 0.8559, Multiclass F1: 0.70 |
 
 ### 3. Linguistic Patterns That Matter
 
@@ -216,7 +223,7 @@ Across all models, four patterns consistently drove sentiment classification:
 
 **Conclusion:** Sentiment is expressed more through word choice and tone than tweet structure alone.
 
-The **Naive Bayes (Binary) model** achieved the best performance with an **F1 Score of 0.8086** (exceeding our 0.80 target) and **85.8% accuracy**.
+The **Logistic Regression (Binary) model** achieved the best performance with an **F1 Score of 0.8559** (exceeding our 0.80 target) and **85% accuracy**.
 
 ---
 
@@ -304,6 +311,7 @@ jupyter
 ## Project Structure
 
 ```
+
 Phase-4-Twitter-Sentiment-Analysis/
 │
 ├── src/                                        # Python modules
@@ -319,7 +327,7 @@ Phase-4-Twitter-Sentiment-Analysis/
 │   ├── train_multiclass.py                     # Multiclass classification models (Eve)
 │   ├── evaluate.py                             # Evaluation metrics and confusion matrices (Verah)
 │   ├── compare_models.py                       # Model comparison and ranking (Naomi)
-│   ├── pipeline.py                             # End-to-end prediction pipeline (Eve)
+│   ├── pipeline.py                             # End-to-end pipeline logic (Eve)
 │   └── __init__.py                             # Package initializer
 │
 ├── notebooks/
@@ -355,6 +363,11 @@ Phase-4-Twitter-Sentiment-Analysis/
 │   ├── binary_model.pkl
 │   ├── multiclass_model.pkl
 │   └── vectorizer.pkl
+│
+├── run_pipeline.py                             # Main script to execute full ML pipeline
+│
+├── makefile/                                   # Automation and workflow management
+│   └── Makefile                                # Commands for running pipeline stages
 │
 ├── requirements.txt
 ├── .gitignore
