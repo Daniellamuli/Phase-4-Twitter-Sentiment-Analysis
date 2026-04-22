@@ -355,20 +355,15 @@ Phase-4-Twitter-Sentiment-Analysis/
 ├── data/
 │   └── judge-1377884607_tweet_product_company.csv
 │
-├── docs/
-│   ├── README.md
-│   └── presentation_slides.md
-│
-├── models/                                     # Saved trained models (generated)
-│   ├── binary_model.pkl
-│   ├── multiclass_model.pkl
-│   └── vectorizer.pkl
+├── presentation/
+│   └── presentation_slides.pdf
 │
 ├── run_pipeline.py                             # Main script to execute full ML pipeline
 │
 ├── makefile/                                   # Automation and workflow management
 │   └── Makefile                                # Commands for running pipeline stages
 │
+├── README.md                                     
 ├── requirements.txt
 ├── .gitignore
 └── PROJECT_PLAN.md
