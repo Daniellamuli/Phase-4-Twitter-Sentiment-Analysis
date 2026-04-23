@@ -358,8 +358,6 @@ Phase-4-Twitter-Sentiment-Analysis/
 ├── presentation/
 │   └── presentation_slides.pdf
 │
-├── run_pipeline.py                             # Main script to execute full ML pipeline
-│
 ├── makefile/                                   # Automation and workflow management
 │   └── Makefile                                # Commands for running pipeline stages
 │
