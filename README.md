@@ -126,9 +126,6 @@ Raw tweet text is extremely noisy. The following cleaning steps were applied in 
 - **Multiclass Classification** — Positive (`2`), Neutral (`1`), Negative (`0`)
 
 ### 3. Data Splitting
-## Data Preparation
-
-### Data Splitting
  
 > This project references two splitting approaches:
 > - An **80/20 train-test split** used during notebook-level experimentation and model evaluation  
@@ -176,7 +173,7 @@ Model performance was primarily evaluated using the **Weighted F1 Score** due to
 | SVM (Multiclass) | 0.6711 | 0.6721 | 0.6711 | **0.6714** |
 | Random Forest (Multiclass) | 0.5772 | 0.6279 | 0.5772 | 0.5947 |
 
-The Linear Regression (Binary) model is the strongest and most reliable choice, delivering the best overall performance with an F1 score of 0.8559 and an accuracy of 0.8479. It not only outperforms all other models in the evaluation but also demonstrates a strong balance between precision (0.8690) and recall (0.8479), meaning it consistently makes accurate predictions while minimizing both false positives and false negatives. This makes it a dependable model for real-world deployment compared to Naive Bayes, SVM, and Random Forest.
+The Logistic Regression (Binary) model is the strongest and most reliable choice, delivering the best overall performance with an F1 score of 0.8559 and an accuracy of 0.8479. It not only outperforms all other models in the evaluation but also demonstrates a strong balance between precision (0.8690) and recall (0.8479), meaning it consistently makes accurate predictions while minimizing both false positives and false negatives. This makes it a dependable model for real-world deployment compared to Naive Bayes, SVM, and Random Forest.
 
 ### Confusion Matrices
 
@@ -210,7 +207,6 @@ As shown in the word clouds below, certain words strongly correlate with sentime
 | Negative sentiment is hardest to detect | Only ~6% of dataset — needs more examples |
 | TF-IDF with unigrams + bigrams works | Captures sentiment-bearing phrases effectively |
 | Words matter more than structure | Linguistic features > tweet length/metadata |
-| Both success criteria met | Binary F1: 0.8559, Multiclass F1: 0.70 |
 
 ### 3. Linguistic Patterns That Matter
 
